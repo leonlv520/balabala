@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,user-scalable=no" />
+
+    <title>笔作浆，梦作帆，艺术起航不平凡！</title>
+    <link rel="stylesheet" href="ruleAlert.css?v=20171111">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+        }
+        body{
+            background: url("./all_bg.jpg?v=1") 0 0 no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        #myCanvas{
+            background: url("./huabanBg.png?v=1") 0 0  no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+            background-position: center;
+            position: absolute;
+            bottom: 100px;
+            left: 30px;
+            /*border:2px solid #6699cc*/
+            /*margin-top:850px;*/
+        }
+        .myPerson{
+            /*position: relative;*/
+        }
+        .person{
+            position: absolute;
+            -webkit-transform: scale(0.8) ;
+            -moz-transform: scale(0.8);
+            -ms-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            transform: scale(0.8);
+            right: -100px;
+            top: -100px;
+        }
+        .hand{
+            position: absolute;
+            top: 44px;
+            right: 162px;
+            /*-webkit-transform: scale(0.8);*/
+            /*-moz-transform: scale(0.8);*/
+            /*-ms-transform: scale(0.8);*/
+            /*-o-transform: scale(0.8);*/
+            /*transform: scale(0.8);*/
+            animation: yao 1s infinite;
+        }
+        @keyframes yao {
+        0%{
+            transform: scale(0.8) rotateZ(0);
+            transform-origin: right bottom;
+        }
+        50%{
+            transform:scale(0.8) rotateZ(30deg);
+            transform-origin: right bottom;
+            }
+        100%{
+            transform:scale(0.8) rotateZ(0deg);
+            transform-origin: right bottom;
+        }
+        }
+        /*#clearPan{*/
+            /*font-size:40px;*/
+            /*border-radius: 20px;*/
+            /*padding: 5px;*/
+            /*position: absolute;*/
+            /*top: 600px;*/
+            /*left: 40%;*/
+        /*}*/
+        button{
+            width: 50px;
+            height: 50px;
+            border-radius: 30px;
+            position: absolute;
+            top:50%;
+        }
+        #text{
+            width: 700px;
+            position: absolute;
+            font-size: 36px;
+            bottom: 30px;
+            left: 50%;
+            margin-left:-250px;
+        }
+        #next{
+            position: absolute;
+            bottom: 680px;
+            right:100px;
+            font-size: 40px;
+            border: 2px solid black;
+            border-radius: 20px;
+            background-color: white;
+            padding: 10px;
+        }
+        #face{
+            width: 330px;
+            height: 330px;
+            /*border: 1px solid black;*/
+            position: absolute;
+            left: 320px;
+            bottom: 220px;
+            /*margin-left:300px;*/
+            /*margin-top: -400px;*/
+            /*z-index: 99;*/
+
+        }
+        .face1{
+            background: url("./face1.png?v=1") 0 0 no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        .face2{
+            background: url("./face2.png?v=1") 0 0 no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+        #duoshou{
+            position: absolute;
+            left: 40px;
+            bottom: 750px;
+        }
+        #duoshouText{
+            width: 220px;
+            height: 220px;
+        }
+        #duoshouKnife{
+            width: 80px;
+            position: relative;
+            left: 150px;
+            bottom: 150px;
+            animation: duoshou .5s infinite;
+        }
+        @keyframes duoshou {
+
+            0%{
+                transform:  rotateZ(0);
+                transform-origin: left bottom;
+            }
+            50%{
+                transform: rotateZ(30deg);
+                transform-origin: left bottom;
+            }
+            100%{
+                transform: rotateZ(0deg);
+                transform-origin: left bottom;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="myPerson">
+        <div class="person">
+            <img src="./person.png?v=1" alt="">
+        </div>
+        <div class="hand">
+            <img src="./hand.png?v=1" alt="">
+        </div>
+        <div id="duoshou">
+            <img src="./knife.png?v=1" alt="" id="duoshouKnife">
+            <img src="./text.png?v=1" alt="" id="duoshouText">
+        </div>
+
+    </div>
+    <!--<span id="text">-->
+                 <!--优秀创意作品于11月20日在“Artlove”公众号公布，入围优秀创意作品可有机会获得由爱尚艺提供的智能教育机器人、微电影拍摄券、优酷土豆会员、百份现金红包奖励；-->
+    <!--</span>-->
+
+    <canvas id="myCanvas" width="960px" height="600" ></canvas>
+    <div id="face"></div>
+    <span id="next">开始绘画</span>
+    <div id="main">
+        <div id="fullbg" ></div>
+        <div id="dialog" style="display: none">
+            <p class="close"><a href="#" id="closeBg" style=" font-size: 50px; line-height: 80px;">关闭</a></p>
+            <div style="font-size: 30px;text-align: left; padding: 36px 50px 0"><span id="active" style="font-size: 36px;font-weight: bold">活动规则：</span><br><br>
+                1、选择一个你喜欢的绘画板，在画板上画出双十一你最爱的那个人；<br>
+                2、绘画完之后将作品截图并分享至朋友圈积赞，活动结束后将积赞截图发至“Artlove”公众号，按积赞总数排名来定获奖用户；<br>
+                3、活动时间：2017年11月10日至2017年12月10日；揭奖时间：2017年12月13日（关注“Artlove”公众号可第一时间得知噢）；<br>
+                4、活动奖品：智能教育机器人、微电影拍摄券、优酷土豆会员、百份现金红包；<br><br>
+                * 本活动最终解释权归爱尚艺教育科技公司所有</div>
+        </div>
+    </div>
+</body>
+<script src="./jquery-3.2.1.min.js"></script>
+
+<script>
+
+//        var mousePressed = false;
+//        var lastX, lastY;
+//        var ctx;
+//        var textList='优秀创意作品于11月20日在“Altlove”公众号公布;入围优秀创意作品可由机会获得由爱尚艺提供的智能教育机器人、微电影拍摄券、优酷土豆会员、百份现金红包奖励；';
+//        function InitThis() {
+//
+//            ctx = document.getElementById('myCanvas').getContext("2d");
+//
+//            $('#myCanvas').on('touchstart',function (e) {
+//                console.log(e);
+//                mousePressed = true;
+//                console.log(e.targetTouches[0].pageX);
+//
+//                Draw(e.targetTouches[0].pageX - $(this).offset().left, e.targetTouches[0].pageY - $(this).offset().top, false);
+//            });
+//
+//            $('#myCanvas').on('touchmove',function (e) {
+//
+//                if (mousePressed) {
+//                    Draw(e.targetTouches[0].pageX - $(this).offset().left, e.targetTouches[0].pageY - $(this).offset().top, true);
+//                }
+//            });
+//
+//            $('#myCanvas').on('touchend',function (e) {
+//
+//                mousePressed = false;
+//            });
+//            $('#myCanvas').on('touchleave',function (e) {
+//                alert(4)
+//                mousePressed = false;
+//            });
+//        }
+//        function Draw(x, y, isDown) {
+//            if (isDown) {
+//                ctx.beginPath();
+//                ctx.strokeStyle = $('#selColor').val();
+//                ctx.lineWidth = $('#selWidth').val();
+//                ctx.lineJoin = "round";
+//                ctx.moveTo(lastX, lastY);
+//                ctx.lineTo(x, y);
+//                ctx.closePath();
+//                ctx.stroke();
+//            }
+//            lastX = x; lastY = y;
+//        }
+//            //清空
+//        function clearArea() {
+//
+//            // Use the identity matrix while clearing the canvas
+//            ctx.setTransform(1, 0, 0, 1, 0, 0);
+//            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+//        }
+
+
+
+
+
+
+//阻止页面默认事件
+  $("body").on("touchmove",function(event){
+    event.preventDefault;
+}, false)
+//        $('#clearPan').on('touchstart',clearArea);
+        $('#next').on('touchstart',function () {
+            window.location='./huaban.html'
+        })
+//        InitThis()
+//        Draw()
+            //设置背景图
+        setInterval(function () {
+            $('#face').toggleClass('face2')
+        },500)
+    window.onload=function () {
+        $(function () {
+            $.ajax({
+                url:'https://miniapp.artloveasy.com/api/mini/draw/visit',
+                type:'get',
+                data:{asy:'draw',openid:GetQueryString('openid')}
+            });
+            function GetQueryString(name)
+            {
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)return  unescape(r[2]); return null;
+            }
+        })
+        //显示灰色 jQuery 遮罩层
+        function showBg() {
+            var bh = $("body").height();
+            var bw = $("body").width();
+            $("#fullbg").css({
+                height:bh,
+                width:bw,
+                display:"block"
+            });
+            $("#dialog").show();
+        }
+        //关闭灰色 jQuery 遮罩
+        function closeBg() {
+            $("#fullbg,#dialog").hide();
+
+        }
+        $('#closeBg').on('touchstart',closeBg)
+        //        弹框
+        showBg();
+    }
+
+
+</script>
+</html>
